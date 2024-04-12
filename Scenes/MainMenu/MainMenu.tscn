@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://du74biedypqt7"]
+
+[ext_resource type="Script" path="res://Scenes/MainMenu/MainMenu.gd" id="1_rprfr"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rprfr")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 340.0
+offset_top = 52.0
+offset_right = 838.0
+offset_bottom = 92.0
+bbcode_enabled = true
+text = "[center] Game Programming Patterns In Godot Demonstration"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 84.0
+offset_top = 218.0
+offset_right = 386.0
+offset_bottom = 303.0
+text = "Command Pattern
+"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

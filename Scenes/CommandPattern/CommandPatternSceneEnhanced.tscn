@@ -1,0 +1,77 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqe0th4wyqold"]
+
+[ext_resource type="PackedScene" uid="uid://b6wbbndnws8a4" path="res://Scenes/CommandPattern/Character/Character.tscn" id="1_17itf"]
+[ext_resource type="Script" path="res://Scenes/CommandPattern/InputManager.gd" id="2_v26gu"]
+[ext_resource type="Script" path="res://Scenes/CommandPattern/UIManager.gd" id="3_e68ty"]
+
+[node name="CommandPatternScene" type="Node2D"]
+
+[node name="Node2D" parent="." instance=ExtResource("1_17itf")]
+position = Vector2(624, 309)
+
+[node name="Node2D2" parent="." instance=ExtResource("1_17itf")]
+modulate = Color(1, 0, 1, 1)
+position = Vector2(413, 450)
+
+[node name="Node2D3" parent="." instance=ExtResource("1_17itf")]
+modulate = Color(1, 1, 0, 1)
+position = Vector2(599, 154)
+
+[node name="Node2D4" parent="." instance=ExtResource("1_17itf")]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(989, 347)
+
+[node name="InputManager" type="Node" parent="." node_paths=PackedStringArray("targetCharacters")]
+script = ExtResource("2_v26gu")
+targetCharacters = [NodePath("../Node2D"), NodePath("../Node2D2"), NodePath("../Node2D3"), NodePath("../Node2D4")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("3_e68ty")
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DupeMe" type="Button" parent="CanvasLayer/Control"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 1
+offset_left = -198.0
+offset_top = -230.0
+offset_right = 54.0
+offset_bottom = -170.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -282.0
+offset_bottom = 174.0
+grow_horizontal = 0
+text = "Controls:
+- left click to move to location
+- right click to undo command
+- tab to scroll through different characters"
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -549.0
+offset_right = 252.0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control/MarginContainer"]
+layout_mode = 2
+text = "Stack: "
+
+[connection signal="commandAdded" from="InputManager" to="CanvasLayer" method="_on_input_manager_command_added"]
+[connection signal="commandRemoved" from="InputManager" to="CanvasLayer" method="_on_input_manager_command_removed"]
